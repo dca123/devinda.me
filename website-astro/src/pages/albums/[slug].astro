@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import { getAlbums, getPhotos, type Images } from "../../lib/notion";
+import { readFileSync, writeFileSync } from "fs";
+import { clsx } from "clsx";
+
+export type Props = {
+  title: string;
+  description: string;
+  date: string;
+  photos: Images;
+};
+
+export async function getStaticPaths() {
+  if (import.meta.env.PROD) {
+    const projects = await getAlbums("076c02479a7e4a4a80c54569831d85e5");
+    const paths = [];
+
+    for (const project of projects) {
+      const photos = await getPhotos(project.id);
+      paths.push({
+        params: {
+          slug: project.slug,
+        },
+        props: {
+          title: project.name,
+          description: project.description,
+          date: project.date,
+          photos,
+        },
+      });
+    }
+    writeFileSync("albums.json", JSON.stringify(paths));
+    return paths;
+  }
+
+  const paths = JSON.parse(readFileSync("albums.json", "utf-8"));
+  return paths;
+}
+
+const { title, description, date, photos } = Astro.props;
+---
+
+<Layout title={title}>
+  <div class="py-7">
+    <h1 class="font-title tracking-wider text-xl">{title}</h1>
+    <p class="text-slate-400">{description}</p>
+    <p class="text-slate-400">{date}</p>
+    <div
+      class="pt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-2"
+    >
+      {
+        photos.map((photo, i) => {
+          let height = 1080;
+          if (photo.aspectRatio === "4:5") {
+            height = 1350;
+          } else if (photo.aspectRatio === "1.91:1") {
+            height = 565;
+          }
+          return (
+            <div
+              class={clsx(
+                "relative",
+                photo.aspectRatio === "1.91:1" && "md:col-span-2",
+                photo.aspectRatio === "4:5" && "md:row-span-2 md:col-span-2",
+                photo.aspectRatio === "1:1" && "md:row-span-2 md:col-span-2",
+                "overflow-hidden rounded",
+              )}
+              id={photo.name}
+            >
+              <Image
+                width={1080}
+                height={height}
+                format="webp"
+                src={photo.src}
+                class="h-full w-full object-cover rounded bg-gray-700 md:hover:scale-105 transition duration-300"
+                alt={photo.alt}
+                loading={i < 4 ? "eager" : "lazy"}
+              />
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>

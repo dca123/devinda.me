@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import { getPlaylists } from "../../lib/notion";
+
+const playlists = await getPlaylists("a3551a2a0ce5449db2a21eca49c8d011");
+---
+
+<Layout title="Playlists">
+  <h1 class="font-title tracking-wider text-xl mt-7">Playlists</h1>
+  <div class="my-6 flex space-y-8 flex-col">
+    {
+      playlists.map((playlist, idx) => (
+        <a>
+          <div class="flex space-x-4">
+            <div class="w-full basis-1/3">
+              <Image
+                width={400}
+                height={200}
+                src="https://source.unsplash.com/random"
+                format="webp"
+                alt=""
+                class="rounded object-cover h-full w-full"
+              />
+            </div>
+
+            <h1 class=" text-3xl font-title font-semibold tracking-wider">
+              {playlist.name}
+            </h1>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</Layout>

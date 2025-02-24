@@ -1,0 +1,72 @@
+---
+import { FaBars, FaTimes } from "react-icons/fa/index.js";
+import { getPath } from "../lib/path";
+
+const path = getPath(Astro.request.url);
+---
+
+<div class="absolute right-7 top-7 md:hidden">
+  <FaBars className="h-5 w-5 text-gray-100 nav-open" />
+</div>
+<nav class="fixed w-full h-full bg-slate-900 opacity-90 hidden md:hidden z-10">
+  <div class="fixed top-7 right-7">
+    <FaTimes className="h-5 w-5 text-gray-100 nav-close" />
+  </div>
+  <div
+    class="flex flex-col justify-center items-center w-full h-full space-y-5 font-light"
+  >
+    <a
+      href="/"
+      class:list={[
+        " text-2xl font-title  p-2 ",
+        {
+          "font-semibold": path === "/",
+        },
+      ]}>Home</a
+    >
+    <a
+      href="/albums"
+      class:list={[
+        " text-2xl font-title  p-2 ",
+        {
+          "font-semibold": path === "/albums",
+        },
+      ]}>Albums</a
+    >
+    <a
+      href="/playlists"
+      class:list={[
+        " text-2xl font-title  p-2 ",
+        {
+          "font-semibold": path === "/playlists",
+        },
+      ]}>Playlists</a
+    >
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const closeButton = document.querySelector(".nav-close");
+    const openButton = document.querySelector(".nav-open");
+    const nav = document.querySelector("nav");
+
+    if (!nav) {
+      throw new Error("Nav not found");
+    }
+    if (!closeButton) {
+      throw new Error("Close Button not found");
+    }
+    if (!openButton) {
+      throw new Error("Open Button not found");
+    }
+
+    closeButton.addEventListener("click", function () {
+      nav.classList.add("hidden");
+    });
+
+    openButton.addEventListener("click", function () {
+      nav.classList.remove("hidden");
+    });
+  });
+</script>

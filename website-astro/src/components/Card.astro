@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import Skill from "./Skill.astro";
+
+export interface Props {
+  title: string;
+  description: string;
+  skills: string[];
+  slug: string;
+  cover: string;
+}
+
+const { description, skills, title, slug, cover } = Astro.props;
+import { slide } from "astro:transitions";
+// const cover = import.meta.env.DEV
+// ? "https://source.unsplash.com/random/600/?landscape"
+// : Astro.props.cover;
+---
+
+<a href={"projects/" + slug} rel="prefetch">
+  <div
+    class="bg-card rounded-lg min-w-full flex flex-col h-full hover:-translate-y-2 transition-transform duration-150"
+  >
+    <div class="aspect-h-3 aspect-w-4">
+      <Image
+        transition:name={`image_${slug}`}
+        src={cover}
+        alt={`Cover image for ${title}`}
+        class="min-w-full rounded rounded-b-none object-cover"
+        width={1080}
+        height={810}
+      />
+    </div>
+    <div class="px-6 flex flex-col justify-between space-y-4 py-4 h-full">
+      <div>
+        <h2
+          transition:name={`title_${slug}`}
+          class="text-card-foreground text-xl font-semibold font-title tracking-wide"
+        >
+          {title}
+        </h2>
+        <p class="text-muted-foreground font-thin">{description}</p>
+      </div>
+      <div class="flex space-x-2">
+        {skills.map((skill) => <Skill title={skill} size="small" />)}
+      </div>
+    </div>
+  </div>
+</a>

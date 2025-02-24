@@ -1,0 +1,42 @@
+---
+import { getPath } from "../lib/path";
+
+const path = getPath(Astro.request.url);
+---
+
+<nav
+  class="hidden md:flex space-x-6 pt-8 justify-end font-medium text-slate-200"
+>
+  <a
+    class:list={["font-title", { "font-bold text-slate-50": path === "/" }]}
+    href="/">Home</a
+  >
+  <a
+    class:list={[
+      "font-title ",
+      { "font-bold text-slate-50": path === "/albums" },
+    ]}
+    href="/albums">Albums</a
+  >
+  <a
+    class:list={[
+      "font-title ",
+      { "font-bold text-slate-50": path === "/playlists" },
+    ]}
+    href="/playlists">Playlists</a
+  >
+  <!--<a
+    class:list={[
+      "font-title",
+      { "font-bold text-slate-50": path === "/about" },
+    ]}
+    href="/about">About</a
+  >
+  <a
+    class:list={[
+      "font-title",
+      { "font-bold text-slate-50": path === "/photos" },
+    ]}
+    href="/photos">Photos</a
+  > -->
+</nav>

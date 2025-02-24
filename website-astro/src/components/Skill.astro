@@ -1,0 +1,17 @@
+---
+export interface Props {
+  title: string;
+  size: "small" | "medium";
+}
+const { title, size } = Astro.props;
+---
+
+<div
+  class:list={[
+    " bg-neutral-500 rounded-md",
+    { "text-xs": size === "small", "text-sm": size === "medium" },
+    { "px-2 py-1": size === "small", "px-3 py-1": size === "medium" },
+  ]}
+>
+  {title}
+</div>

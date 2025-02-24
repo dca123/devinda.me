@@ -1,0 +1,79 @@
+---
+import Skill from "../../components/Skill.astro";
+import Layout from "../../layouts/Layout.astro";
+import { type Content, extractContent } from "../../lib/notionExtracter";
+import Notion from "../../components/Notion";
+import { getProjects, response } from "../../lib/notion";
+import { readFileSync, writeFileSync } from "fs";
+type Project = Awaited<ReturnType<typeof getProjects>>[0];
+import { Image } from "astro:assets";
+
+export type Props = Project & {
+  blocks: Content;
+};
+
+export async function getStaticPaths() {
+  if (import.meta.env.PROD) {
+  const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {onlyPublished: true});
+    const paths = [];
+
+    for (const project of projects) {
+      const notionData = await response(project.page_id);
+      const content = await extractContent(notionData, project.page_id);
+
+      paths.push({
+        params: {
+          slug: project.slug,
+        },
+        props: {
+          blocks: content,
+          ...project,
+        },
+      });
+    }
+    writeFileSync("projects.json", JSON.stringify(paths));
+    return paths;
+  }
+
+  const paths = JSON.parse(readFileSync("projects.json", "utf-8"));
+  return paths;
+}
+
+const { slug, blocks, cover, skills, title, date } = Astro.props;
+---
+
+<Layout title={title + " | Devinda Senanayake"}>
+  <div class="mx-0 text-base md:mx-28 md:text-lg">
+    <div class="flex flex-col justify-between mt-4">
+      <h1
+        transition:name={`title_${slug}`}
+        transition:animate="slide"
+        class="text-xl font-title"
+      >
+        {title}
+      </h1>
+      <p class="font-light text-sm font-title">{date}</p>
+    </div>
+
+    <div class="aspect-w-4 aspect-h-5 md:aspect-h-1 md:aspect-w-2 mt-4">
+      <Image
+        transition:name={`image_${slug}`}
+        src={cover}
+        alt="placeholder"
+        class="min-w-full rounded object-cover"
+        width={1080}
+        height={1350}
+      />
+    </div>
+
+    <div class="flex space-x-2 pt-4">
+      {skills.map((skill) => <Skill title={skill} size="medium" />)}
+    </div>
+
+    <hr class="h-px mt-6 mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
+
+    <div class="space-y-3 pb-6">
+      <Notion blocks={blocks} />
+    </div>
+  </div>
+</Layout>

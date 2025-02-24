@@ -1,0 +1,24 @@
+{
+  "name": "image-uploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@notionhq/client": "^2.2.13",
+    "cloudinary": "^1.40.0",
+    "sharp": "^0.32.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "bun-types": "^1.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

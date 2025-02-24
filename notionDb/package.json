@@ -1,0 +1,21 @@
+{
+  "name": "notionDb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/notionDb.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "@notionhq/client": "^2.2.16"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.6"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "soundcloud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "@notionhq/client": "^2.2.16",
+    "arktype": "^2.0.4",
+    "notionDb": "link:../notionDb"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "notionDb": "link:../notionDb"
+    }
+  }
+}

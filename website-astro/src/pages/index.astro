@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { getProjects } from "../lib/notion";
+import { FaEnvelope, FaGithub } from "react-icons/fa/index.js";
+
+const intro =
+  "Welcome to my corner of the internet ! Writing about stuff I learn, make and discover.";
+const email = "mailto:" + "contact@devinda.me";
+const github = "https://github.com/" + "dca123";
+const resume = "https://devinda.me/resume";
+const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {onlyPublished: true});
+---
+
+<Layout title="Devinda Senanayake">
+  <main class="pt-7 pb-10">
+    <div class="space-y-2">
+      <h1 class="font-light text-xl font-title">Hi,</h1>
+      <h1 class="font-light text-3xl font-title">I'm</h1>
+      <h1
+        class="font-black font-title text-transparent bg-clip-text bg-gradient-to-br from-orange-400 to-orange-700 text-5xl"
+      >
+        Devinda Senanayake
+      </h1>
+    </div>
+    <div class="bg-card rounded p-4 mt-4 w-fit">
+      <p>
+        {intro}
+      </p>
+    </div>
+    <div
+      class="flex justify-between mt-5 mx-4 items-center md:justify-start md:space-x-8 md:mx-0"
+    >
+      <a
+        class="bg-gradient-to-br from-orange-400 to bg-orange-500 hover:bg-orange-600 p-2 rounded text-md"
+        href={resume}
+        target="_blank"
+        aria-label="Resume"
+      >
+        Resume
+      </a>
+      <a
+        class="bg-background hover:border-border border border-transparent transition-colors px-6 py-2 rounded"
+        href={email}
+        target="_blank"
+        aria-label="Email"
+      >
+        <FaEnvelope
+          className="h-5 w-5 flex-no-shrink fill-current text-gray-100"
+          fill="none"
+        />
+      </a>
+      <a
+        class="bg-background hover:border-border border border-transparent transition-colors px-6 py-2 rounded"
+        href={github}
+        target="_blank"
+        aria-label="Github"
+      >
+        <FaGithub
+          className="h-5 w-5 flex-no-shrink fill-current text-gray-100"
+          fill="none"
+        />
+      </a>
+    </div>
+
+    <hr class="h-px my-6 border-0 bg-neutral-800" />
+
+    <h1 class="font-normal text-xl mt-2 font-title tracking-wider">
+      Stuff I've Done
+    </h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      {
+        projects.map((project) => (
+          <Card
+            title={project.title}
+            description={project.description}
+            skills={project.skills}
+            slug={project.slug}
+            cover={project.cover}
+          />
+        ))
+      }
+    </div>
+  </main>
+</Layout>
