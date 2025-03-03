@@ -27,9 +27,12 @@ async function main() {
     },
   });
   const existingPlaylists = await db.findAll();
+  console.log(`Database has ${existingPlaylists.length} existing playlists`)
   const playlists = await sc.getPlaylists();
+  console.log(`Extracted ${playlists.length} playlists`)
   for (let i = 0; i < playlists.length; i++) {
     const playlist = playlists[i];
+    console.log(`${Math.floor(i / playlists.length * 100)}% : processing playlist ${playlist.title}`)
     const exists = existingPlaylists.some((ep) => ep.id === playlist.id);
     if (exists) continue;
     await db.insert({

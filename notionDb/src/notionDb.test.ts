@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { NotionDB, date, select, text, title } from "./notionDb";
+import { NotionDB, date, select, text, title } from "./notionDb.js";
 import { Client } from "@notionhq/client";
 
 const notionClient = new Client({
@@ -14,7 +14,6 @@ test("inserts title to page", async () => {
       Name: title(),
     },
   });
-
   const name = "Hello World";
   const response = await client.insert({
     Name: name,

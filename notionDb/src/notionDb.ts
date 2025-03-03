@@ -12,33 +12,37 @@ export type OTitle = Extract<OutputProperties, { type?: "title" }>;
 type OSelect = NonNullableObj<Extract<OutputProperties, { type?: "select" }>>;
 type ODate = NonNullableObj<Extract<OutputProperties, { type?: "date" }>>;
 
+export type Schema = Record<
+  string,
+  | ReturnType<typeof title>
+  | ReturnType<typeof text>
+  | ReturnType<typeof select>
+  | ReturnType<typeof date>
+>
+
 export class NotionDB<
-  S extends Record<
-    string,
-    | ReturnType<typeof title>
-    | ReturnType<typeof text>
-    | ReturnType<typeof select>
-    | ReturnType<typeof date>
-  >,
+  S extends Schema,
   A = {
     [P in keyof S]: S[P] extends ReturnType<typeof text>
-      ? OString
-      : S[P] extends ReturnType<typeof title>
-        ? OTitle
-        : S[P] extends ReturnType<typeof select>
-          ? OSelect
-          : S[P] extends ReturnType<typeof date>
-            ? ODate
-            : never;
+    ? OString
+    : S[P] extends ReturnType<typeof title>
+    ? OTitle
+    : S[P] extends ReturnType<typeof select>
+    ? OSelect
+    : S[P] extends ReturnType<typeof date>
+    ? ODate
+    : never;
   },
 > {
   private client: Client;
-  private databaseId: string;
+  public databaseName?: string
+  public databaseId: string;
   private schema: S;
 
-  constructor(config: { databaseId: string; schema: S; client: Client }) {
+  constructor(config: { databaseId: string; schema: S; client: Client, databaseName?: string }) {
     this.client = config.client;
     this.databaseId = config.databaseId;
+    this.databaseName = config.databaseName
     this.schema = config.schema;
   }
 
@@ -130,6 +134,7 @@ export function title() {
       } satisfies Title;
     },
     read: (data: OTitle) => data.title[0].plain_text,
+    create: () => ({ title: {} })
   };
 }
 
@@ -150,6 +155,7 @@ export function text() {
       } satisfies Text;
     },
     read: (data: OString) => data.rich_text[0].plain_text,
+    create: () => ({ rich_text: {} })
   };
 }
 
@@ -165,6 +171,7 @@ export function select<const T extends string>(options: Array<T>) {
       };
     },
     read: (data: OSelect) => data.select.name as T,
+    create: () => ({ select: { options: options.map(n => ({ name: n })) } })
   };
 }
 
@@ -180,5 +187,6 @@ export function date() {
       } satisfies NDate;
     },
     read: (data: ODate) => new Date(data.date.start),
+    create: () => ({ date: {} })
   };
 }
