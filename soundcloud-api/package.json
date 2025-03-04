@@ -14,15 +14,10 @@
   "dependencies": {
     "@notionhq/client": "^2.2.16",
     "arktype": "^2.0.4",
-    "notionDb": "link:../notionDb"
+    "notionDb": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
     "typescript": "^5.7.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "notionDb": "link:../notionDb"
-    }
   }
 }

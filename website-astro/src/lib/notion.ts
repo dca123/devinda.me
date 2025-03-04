@@ -1,6 +1,6 @@
 import { Client, isFullBlock, isFullPage } from "@notionhq/client";
 import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { NotionDB, date, select, title } from "./notionDb";
+import { NotionDB, date, select, title } from "notionDb";
 
 export const notion = new Client({
   auth: import.meta.env.NOTION_API_KEY,

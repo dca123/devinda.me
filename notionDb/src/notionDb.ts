@@ -78,7 +78,6 @@ export class NotionDB<
       throw new Error(`${r.id} is not a full page`);
     });
 
-    //console.log(results);
     return results;
   }
 

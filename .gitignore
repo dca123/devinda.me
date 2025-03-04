@@ -4,4 +4,6 @@
 .env.*
 **/.env
 **/.env.*
-
+.turbo
+node_modules
+**/node_modules
