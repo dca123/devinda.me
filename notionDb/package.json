@@ -2,10 +2,12 @@
   "name": "notionDb",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/notionDb.js",
   "type": "module",
+  "exports": {
+    ".": "./src/notionDb.ts",
+    "./createNotionDb": "./src/createNotionDb.ts"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
     "test": "vitest"
   },
   "keywords": [],
