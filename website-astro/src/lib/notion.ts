@@ -2,18 +2,8 @@ import { Client, isFullBlock, isFullPage } from "@notionhq/client";
 import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { NotionDB, date, select, title } from "notionDb";
 
-if (
-  process.env.NOTION_API_KEY === "" ||
-  process.env.NOTION_API_KEY === undefined
-) {
-  console.log("didnt find key");
-  console.log(process.env.NOTION_API_KEY);
-} else {
-  console.log("found key");
-  console.log(process.env.NOTION_API_KEY);
-}
 export const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
+  auth: import.meta.env.NOTION_API_KEY,
 });
 
 export const response = (block_id: string) =>
