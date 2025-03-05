@@ -3,17 +3,17 @@ import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoin
 import { NotionDB, date, select, title } from "notionDb";
 
 if (
-  import.meta.env.NOTION_API_KEY === "" ||
-  import.meta.env.NOTION_API_KEY === undefined
+  process.env.NOTION_API_KEY === "" ||
+  process.env.NOTION_API_KEY === undefined
 ) {
   console.log("didnt find key");
-  console.log(import.meta.env.NOTION_API_KEY);
+  console.log(process.env.NOTION_API_KEY);
 } else {
   console.log("found key");
-  console.log(import.meta.env.NOTION_API_KEY);
+  console.log(process.env.NOTION_API_KEY);
 }
 export const notion = new Client({
-  auth: import.meta.env.NOTION_API_KEY,
+  auth: process.env.NOTION_API_KEY,
 });
 
 export const response = (block_id: string) =>
