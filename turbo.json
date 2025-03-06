@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["NOTION_API_KEY", "CLOUDINARY_URL"]
+      "passThroughEnv": ["NOTION_API_KEY", "CLOUDINARY_URL"]
     },
     "dev": {
       "persistent": true,
