@@ -3,7 +3,7 @@ import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoin
 import { NotionDB, date, select, title } from "notionDb";
 
 export const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
+  auth: import.meta.env.PUBLIC_NOTION_API_KEY,
 });
 
 export const response = (block_id: string) =>
