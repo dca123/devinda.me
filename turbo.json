@@ -1,10 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NOTION_API_KEY", "CLOUDINARY_URL"],
+  "globalEnv": [],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["NOTION_API_KEY", "CLOUDINARY_URL"]
+      "env": []
     },
     "dev": {
       "persistent": true,

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "echo $NOTION_API_KEY && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

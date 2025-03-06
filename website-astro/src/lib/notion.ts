@@ -2,10 +2,11 @@ import { Client, isFullBlock, isFullPage } from "@notionhq/client";
 import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { NotionDB, date, select, title } from "notionDb";
 
+console.log("hiii");
+console.log({ env: import.meta.env.NOTION_API_KEY });
 export const notion = new Client({
   auth: import.meta.env.NOTION_API_KEY,
 });
-
 export const response = (block_id: string) =>
   notion.blocks.children.list({
     block_id,
