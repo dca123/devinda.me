@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": [],
+  "globalEnv": ["CLOUDINARY_URL", "NOTION_API_KEY"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
