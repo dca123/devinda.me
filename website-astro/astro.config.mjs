@@ -14,11 +14,7 @@ export default defineConfig({
   integrations: [tailwind(), react(), prefetch()],
   output: "static",
   image: {
-    domains: [
-      "images.unsplash.com",
-      "res.cloudinary.com",
-      "source.unsplash.com",
-    ],
+    domains: ["images.unsplash.com", "res.cloudinary.com", "picsum.photos"],
   },
   adapter: vercel({
     analytics: true,

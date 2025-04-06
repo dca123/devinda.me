@@ -6,6 +6,7 @@
       "env": ["CLOUDINARY_URL", "NOTION_API_KEY"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "persistent": true,
       "cache": false
     }
