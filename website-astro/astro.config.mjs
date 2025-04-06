@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 
 import react from "@astrojs/react";
 
@@ -9,13 +8,17 @@ import prefetch from "@astrojs/prefetch";
 // https://astro.build/config
 import vercel from "@astrojs/vercel/static";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), prefetch()],
+  integrations: [react(), prefetch()],
   output: "static",
+
   image: {
     domains: ["images.unsplash.com", "res.cloudinary.com", "picsum.photos"],
   },
+
   adapter: vercel({
     analytics: true,
     imageService: true,
@@ -28,4 +31,9 @@ export default defineConfig({
       ],
     },
   }),
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
+
