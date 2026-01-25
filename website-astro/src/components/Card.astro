@@ -17,7 +17,7 @@ import { slide } from "astro:transitions";
 // : Astro.props.cover;
 ---
 
-<a href={"projects/" + slug} rel="prefetch">
+<a href={"projects/" + slug} data-astro-prefetch>
   <div
     class="bg-card rounded-lg min-w-full flex flex-col h-full hover:-translate-y-2 transition-transform duration-150"
   >

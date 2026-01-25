@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import { getProjects } from "../lib/notion";
+import { getCollection } from "astro:content";
 import { RiBlueskyLine, RiGithubLine } from "react-icons/ri";
 import { CiMail } from "react-icons/ci";
 import Post from "../components/Post.astro";
@@ -13,9 +13,7 @@ const email = "mailto:" + "contact@devinda.me";
 const github = "https://github.com/" + "dca123";
 const bluesky = "https://bsky.app/profile/devinda.me";
 //const resume = "https://devinda.me/resume";
-const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {
-  onlyPublished: true,
-});
+const projects = await getCollection("projects");
 ---
 
 <Layout title="Devinda Senanayake">
@@ -153,19 +151,22 @@ const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {
         </div>
       </div>
     </div>
-    <!--<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">-->
-    <!--  {-->
-    <!--    projects.map((project) => (-->
-    <!--      <Card-->
-    <!--        title={project.title}-->
-    <!--        description={project.description}-->
-    <!--        skills={project.skills}-->
-    <!--        slug={project.slug}-->
-    <!--        cover={project.cover}-->
-    <!--      />-->
-    <!--    ))-->
-    <!--  }-->
-    <!--</div>-->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      {
+        projects.map((entry) => {
+          const project = entry.data.props;
+          return (
+            <Card
+              title={project.title}
+              description={project.description}
+              skills={project.skills}
+              slug={project.slug}
+              cover={project.cover}
+            />
+          );
+        })
+      }
+    </div>
   </main>
 </Layout>
 

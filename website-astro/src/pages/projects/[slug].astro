@@ -1,42 +1,16 @@
 ---
 import Skill from "../../components/Skill.astro";
 import Layout from "../../layouts/Layout.astro";
-import { type Content, extractContent } from "../../lib/notionExtracter";
 import Notion from "../../components/Notion";
-import { getProjects, response } from "../../lib/notion";
-import { readFileSync, writeFileSync } from "fs";
-type Project = Awaited<ReturnType<typeof getProjects>>[0];
+import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
-export type Props = Project & {
-  blocks: Content;
-};
-
 export async function getStaticPaths() {
-  if (import.meta.env.PROD) {
-  const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {onlyPublished: true});
-    const paths = [];
-
-    for (const project of projects) {
-      const notionData = await response(project.page_id);
-      const content = await extractContent(notionData, project.page_id);
-
-      paths.push({
-        params: {
-          slug: project.slug,
-        },
-        props: {
-          blocks: content,
-          ...project,
-        },
-      });
-    }
-    writeFileSync("projects.json", JSON.stringify(paths));
-    return paths;
-  }
-
-  const paths = JSON.parse(readFileSync("projects.json", "utf-8"));
-  return paths;
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.data.params.slug },
+    props: project.data.props,
+  }));
 }
 
 const { slug, blocks, cover, skills, title, date } = Astro.props;

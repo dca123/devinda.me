@@ -1,42 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
-import { getAlbums, getPhotos, type Images } from "../../lib/notion";
-import { readFileSync, writeFileSync } from "fs";
 import { clsx } from "clsx";
-
-export type Props = {
-  title: string;
-  description: string;
-  date: string;
-  photos: Images;
-};
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  if (import.meta.env.PROD) {
-    const projects = await getAlbums("076c02479a7e4a4a80c54569831d85e5");
-    const paths = [];
-
-    for (const project of projects) {
-      const photos = await getPhotos(project.id);
-      paths.push({
-        params: {
-          slug: project.slug,
-        },
-        props: {
-          title: project.name,
-          description: project.description,
-          date: project.date,
-          photos,
-        },
-      });
-    }
-    writeFileSync("albums.json", JSON.stringify(paths));
-    return paths;
-  }
-
-  const paths = JSON.parse(readFileSync("albums.json", "utf-8"));
-  return paths;
+  const albums = await getCollection("albums");
+  return albums.map((album) => ({
+    params: { slug: album.data.params.slug },
+    props: album.data.props,
+  }));
 }
 
 const { title, description, date, photos } = Astro.props;
