@@ -1,20 +1,36 @@
 @import "tailwindcss";
-@layer base {
-  :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 96.1%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 96.1%;
+:root {
+  --background: hsl(0 0% 3.9%);
+  --foreground: hsl(0 0% 96.1%);
 
-    --primary: 20.5 90.2% 48.2%;
-    --primary-foreground: 0 0% 96.1%;
+  --card: hsl(0 0% 9%);
+  --card-foreground: hsl(0 0% 96.1%);
 
-    --muted: 0 0% 98%;
-    --muted-foreground: 0 0% 83.1%;
+  --primary: hsl(20.5 90.2% 48.2%);
+  --primary-foreground: hsl(0 0% 96.1%);
 
-    --border: 27 96% 61%;
+  --muted: hsl(0 0% 98%);
+  --muted-foreground: hsl(0 0% 83.1%);
 
-    --accent-foreground: 27 96% 61%;
-  }
+  --border: hsl(27 96% 61%);
+
+  --accent-foreground: hsl(27 96% 61%);
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--primary);
+  --font-sans: "NunitoVariable", "Nunito", sans-serif;
+  --font-title: "MontserratVariable", "Montserrat", sans-serif;
 }

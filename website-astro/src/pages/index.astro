@@ -19,7 +19,7 @@ const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {
 ---
 
 <Layout title="Devinda Senanayake">
-  <main class="pt-7 pb-10 flex flerow">
+  <main class="pt-7 pb-10 flex">
     <div class="flex flex-col space-y-4 w-2/3">
       <div class="w-full">
         <div class="space-y-2">
@@ -140,25 +140,11 @@ const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {
         <h1 class="font-normal text-xl mt-2 font-title tracking-wider">
           Playlists
         </h1>
-        <div class="relative">
-          <div class="relative perspective-1000 perspective-origin-top">
+        <div class="relative mt-2">
+          <div class="relative perspective-[2000px] perspective-origin-top">
             <Image
-              src={"https://picsum.photos/800?random=3"}
-              class="top-0 absolute h-64 w-64 rounded object-cover hover:-translate-y-10 transition-all transform-style-3d origin-bottom vinyl"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <Image
-              src={"https://picsum.photos/800?random=2"}
-              class="top-[20px] absolute h-64 w-64 rounded object-cover hover:-translate-y-10 transition-all transform-style-3d origin-bottom vinyl"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <Image
-              src={"https://picsum.photos/800?random=1"}
-              class="top-[40px] absolute h-64 w-64 rounded object-cover hover:-translate-y-10 transition-all transform-style-3d origin-bottom vinyl"
+              src={"https://picsum.photos/800?random=5"}
+              class="top-0 absolute size-64 rounded object-cover hover:-rotate-x-[30deg] hover:translate-y-[20px] transition-all vinyl"
               alt=""
               width={200}
               height={200}
@@ -184,7 +170,7 @@ const projects = await getProjects("4f1fd603748b44d58615d782979d7a1e", {
 </Layout>
 
 <style>
-  .vinyl:nth-child(2):hover ~ .vinyl:nth-child(1) {
-    transform: rotateX(12deg) translateY(30px)
+  .vinyl {
+    transform-style: preserve-3d;
   }
-</style
+</style>

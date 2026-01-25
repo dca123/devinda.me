@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="">
+  <div class="h-full">
+    <h1 class="font-normal text-xl mt-2 font-title tracking-wider">
+      Playlists
+    </h1>
+    <div class="relative mt-2">
+      <div
+        class="relative -space-y-[130px] perspective-distant perspective-origin-top-left"
+      >
+        <Image
+          src={"https://picsum.photos/800?random=6"}
+          class="size-44 rounded object-cover shadow vinyl border border-black"
+          alt=""
+          width={200}
+          height={200}
+        />
+        <Image
+          src={"https://picsum.photos/800?random=4"}
+          class="size-44 rounded object-cover vinyl border border-black"
+          alt=""
+          width={200}
+          height={200}
+        />
+        <Image
+          src={"https://picsum.photos/800?random=3"}
+          class="size-44 rounded object-cover shadow vinyl border border-black"
+          alt=""
+          width={200}
+          height={200}
+        />
+        <Image
+          src={"https://picsum.photos/800?random=7"}
+          class="size-44 rounded object-cover shadow vinyl border border-black"
+          alt=""
+          width={200}
+          height={200}
+        />
+        <Image
+          src={"https://picsum.photos/800?random=5"}
+          class="size-44 rounded object-cover shadow-2xl vinyl border-black border"
+          alt=""
+          width={200}
+          height={200}
+        />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .vinyl:nth-child($1) {
+  }
+</style>
+
+<script>
+  import { animate, utils, type DOMTarget } from "animejs";
+
+  const images = utils.$(".vinyl");
+  images.forEach((img, idx) => {
+    img.addEventListener("mouseover", () => mouseover(img, idx));
+    img.addEventListener("mouseout", () => mouseexit(img, idx));
+  });
+
+  function mouseover(img: DOMTarget, idx: number) {
+    console.log("mouse over ", idx, img);
+    const slidingImages = images.slice(idx + 1);
+    animate(img, {
+      translateY: -80,
+      duration: 250,
+    });
+    slidingImages.forEach((img, idx) => {
+      animate(img, { rotateX: -30 - 10 * idx, duration: 250 });
+    });
+  }
+
+  function mouseexit(img: DOMTarget, idx: number) {
+    console.log("mouse exit ", idx, img);
+    const slidingImages = images.slice(idx + 1);
+    animate(img, {
+      translateY: 0,
+      duration: 150,
+    });
+    slidingImages.forEach((img) => {
+      animate(img, { rotateX: 0, duration: 150 });
+    });
+  }
+</script>
