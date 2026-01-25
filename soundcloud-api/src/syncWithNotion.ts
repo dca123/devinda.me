@@ -1,6 +1,6 @@
 import { date, NotionDB, select, title, text } from "notionDb";
 import { Client } from "@notionhq/client";
-import { SoundCloud } from ".";
+import { SoundCloud } from "./index.js";
 
 if (!process.env.NOTION_API_KEY) {
   throw new Error("Setup api key, NOTION_API_KEY is undefined");
@@ -33,7 +33,7 @@ async function main() {
   for (let i = 0; i < playlists.length; i++) {
     const playlist = playlists[i];
     console.log(`${Math.floor(i / playlists.length * 100)}% : processing playlist ${playlist.title}`)
-    const exists = existingPlaylists.some((ep) => ep.id === playlist.id);
+    const exists = existingPlaylists.some((ep: any) => ep.id === playlist.id);
     if (exists) continue;
     await db.insert({
       id: playlist.id,

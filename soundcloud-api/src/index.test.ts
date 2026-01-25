@@ -1,4 +1,4 @@
-import { SoundCloud } from ".";
+import { SoundCloud } from "./index.js";
 
 async function playlists() {
   const sc = new SoundCloud({

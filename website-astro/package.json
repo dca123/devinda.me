@@ -8,7 +8,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest run",
+    "lint": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/prefetch": "^0.4.1",

@@ -5,6 +5,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "build": "tsc --noEmit"
+  },
   "dependencies": {
     "@notionhq/client": "^2.2.13",
     "cloudinary": "^1.40.0",

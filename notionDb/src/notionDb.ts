@@ -35,11 +35,11 @@ export class NotionDB<
   },
 > {
   private client: Client;
-  public databaseName?: string
+  public databaseName?: string | undefined
   public databaseId: string;
   private schema: S;
 
-  constructor(config: { databaseId: string; schema: S; client: Client, databaseName?: string }) {
+  constructor(config: { databaseId: string; schema: S; client: Client, databaseName?: string | undefined }) {
     this.client = config.client;
     this.databaseId = config.databaseId;
     this.databaseName = config.databaseName
