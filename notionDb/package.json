@@ -16,9 +16,9 @@
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
   "dependencies": {
-    "@notionhq/client": "^2.2.16"
+    "@notionhq/client": "^5.8.0"
   },
   "devDependencies": {
-    "vitest": "^3.0.6"
+    "vitest": "^4.0.18"
   }
 }

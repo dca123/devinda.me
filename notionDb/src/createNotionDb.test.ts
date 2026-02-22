@@ -5,6 +5,7 @@ import { Client } from "@notionhq/client";
 
 const notionClient = new Client({
   auth: import.meta.env.VITE_NOTION_API_KEY,
+  notionVersion: "2025-09-03",
 });
 
 test("create database", async () => {
@@ -24,10 +25,10 @@ test("create database", async () => {
   await db.insert({
     title: "hello world"
   })
-  const notionDB = new NotionDB({
+  const notionDB = await NotionDB.create({
     client: notionClient,
     databaseId: db.databaseId,
-    schema
+    schema,
   })
 
   const result = await notionDB.findAll()
@@ -36,7 +37,7 @@ test("create database", async () => {
     expect.arrayContaining([{ title: "hello world" }])
   )
   assertType<NotionDB<typeof schema>>(db)
-});
+}, 20_000);
 
 //improve test checking
 //make title mandatory in schema

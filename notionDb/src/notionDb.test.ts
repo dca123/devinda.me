@@ -4,10 +4,11 @@ import { Client } from "@notionhq/client";
 
 const notionClient = new Client({
   auth: import.meta.env.VITE_NOTION_API_KEY,
+  notionVersion: "2025-09-03",
 });
 
 test("inserts title to page", async () => {
-  const client = new NotionDB({
+  const client = await NotionDB.create({
     client: notionClient,
     databaseId: "2a93636c71494fe88f3f810fcb0be6cf",
     schema: {
@@ -23,7 +24,7 @@ test("inserts title to page", async () => {
 });
 
 test("inserts string to page", async () => {
-  const client = new NotionDB({
+  const client = await NotionDB.create({
     client: notionClient,
     databaseId: "2a93636c71494fe88f3f810fcb0be6cf",
     schema: {
@@ -40,7 +41,7 @@ test("inserts string to page", async () => {
 });
 
 test("inserts select to page", async () => {
-  const client = new NotionDB({
+  const client = await NotionDB.create({
     client: notionClient,
     databaseId: "2a93636c71494fe88f3f810fcb0be6cf",
     schema: {
@@ -56,7 +57,7 @@ test("inserts select to page", async () => {
 });
 
 test("inserts date to page", async () => {
-  const client = new NotionDB({
+  const client = await NotionDB.create({
     client: notionClient,
     databaseId: "2a93636c71494fe88f3f810fcb0be6cf",
     schema: {
@@ -75,7 +76,7 @@ test("inserts date to page", async () => {
 });
 
 test("findAll", async () => {
-  const client = new NotionDB({
+  const client = await NotionDB.create({
     client: notionClient,
     databaseId: "2a4cbc8d46d34b508c5ac30897394140",
     schema: {
